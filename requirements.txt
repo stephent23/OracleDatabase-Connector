@@ -1,2 +1,2 @@
-cx_Oracle
-
+cx-Oracle==5.2.1
+pycrypto==2.6.1
