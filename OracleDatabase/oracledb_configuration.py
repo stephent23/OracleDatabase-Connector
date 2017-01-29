@@ -28,16 +28,17 @@ class DBConfiguration(object):
 		config_file = open(self.config_file, 'w')
 		
 		# Encrypt and the password
-		password = security._encrypt_val(password)
+		password = PasswordSecurity()._encrypt_val(password)
 
 		# Create configuration file settings.
-		Config.add_section('DatabaseInfo')
-		Config.set('DatabaseInfo', 'hostname', hostname)
+		config = ConfigParser.RawConfigParser()
+		config.add_section('DatabaseInfo')
+		config.set('DatabaseInfo', 'hostname', hostname)
 		
-		Config.add_section('DatabaseCredentials')
-		Config.set('DatabaseCredentials', 'username', username)
-		Config.set('DatabaseCredentials', 'password', password)
+		config.add_section('DatabaseCredentials')
+		config.set('DatabaseCredentials', 'username', username)
+		config.set('DatabaseCredentials', 'password', password)
 
 		# Write the configuration to the file. 
-		Config.write(config_file)
+		config.write(config_file)
 		config_file.close()
