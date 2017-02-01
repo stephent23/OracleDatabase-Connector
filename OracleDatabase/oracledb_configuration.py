@@ -15,8 +15,8 @@ class DBConfiguration(object):
 
 
 	def _get_config(self):
-		configuration = ConfigParser.ConfigParser()
-		configuration.read(self.config_file)
+		parser = ConfigParser.ConfigParser()
+		configuration = parser.read(self.config_file)
 
 		self.db_config['database'] = configuration.get('DatabaseInfo', 'hostname')
 		self.db_config['username'] = configuration.get('DatabaseCredentials', 'username')
