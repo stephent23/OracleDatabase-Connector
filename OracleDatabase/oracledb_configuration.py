@@ -15,12 +15,16 @@ class DBConfiguration(object):
 
 
 	def _get_config(self):
-		parser = ConfigParser.ConfigParser()
-		configuration = parser.read(self.config_file)
+		return self.db_config
 
-		self.db_config['database'] = configuration.get('DatabaseInfo', 'hostname')
-		self.db_config['username'] = configuration.get('DatabaseCredentials', 'username')
-		self.db_config['password'] = configuration.get('DatabaseCredentials', 'password')
+
+	def _get_config_from_file(self):
+		parser = ConfigParser.ConfigParser()
+		parser.read(self.config_file)
+
+		self.db_config['hostname'] = parser.get('DatabaseInfo', 'hostname')
+		self.db_config['username'] = parser.get('DatabaseCredentials', 'username')
+		self.db_config['password'] = parser.get('DatabaseCredentials', 'password')
 
 
 	def _write_config(self, hostname, username, password):

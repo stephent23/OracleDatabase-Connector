@@ -23,6 +23,6 @@ class PasswordSecurity(object):
 
 	
 	def _decrypt_val(self, cipher_text):
-		raw_decrypted = self.key(base64.b64decode(cipher_text))
+		raw_decrypted = self.key.decrypt(base64.b64decode(cipher_text))
 		clear_text = raw_decrypted.rstrip("\0")
 		return clear_text

@@ -11,10 +11,10 @@ class Database(object):
 
 	
 	def _connect_to_database(self):
-		self.configuration_file._get_config()
-		config = self.configuration_file.db_config
+		self.configuration_file._get_config_from_file()
+		config = self.configuration_file._get_config()
 		plain_password = self.security._decrypt_val(config['password'])
-		connection_string = str(config['hostname'] + '/' + plain_password + '@' + config['hostname'])
+		connection_string = str(config['username'] + '/' + plain_password + '@' + config['hostname'])
 		
 		# Establish connection
 		self.db_connection = database.connect(connection_string)
