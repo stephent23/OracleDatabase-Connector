@@ -14,30 +14,28 @@ class Database(object):
 		self.configuration_file._get_config_from_file()
 		config = self.configuration_file._get_config()
 		plain_password = self.security._decrypt_val(config['password'])
-		connection_string = str(config['username'] + '/' + plain_password + '@' + config['hostname'])
-		
+		dsn_tns = database.makedsn(host=config['hostname'], port='1521', service_name=config['service'])
 		# Establish connection
-		self.db_connection = database.connect(connection_string)
-
+		self.db_connection = database.connect(user=config['username'], password=plain_password, dsn=dsn_tns)
 
 	def _query_fetch_one(self, sql_query):
-		cursor = self.db_connection.database.cursor()
-		cursor.database.execute(sql_query)
-		result = cursor.database.fetchone()
+		cursor = self.db_connection.cursor()
+		cursor.execute(sql_query)
+		result = cursor.fetchone()
 		return result
 
 	
 	def _query_fetch_many(self, sql_query, number_of_rows):
-		cursor = self.db_connection.database.cursor()
-		cursor.database.execute(sql_query)
-		result = cursor.database.fetchmany(numRows=number_of_rows)
+		cursor = self.db_connection.cursor()
+		cursor.execute(sql_query)
+		result = cursor.fetchmany(numRows=number_of_rows)
 		return result
 
 
 	def _query_fetch_all(self, sql_query):
-		cursor = self.db_connection.database.cursor()
-		cursor.database.execute(sql_query)
-		result = cursor.database.fetchall()
+		cursor = self.db_connection.cursor()
+		cursor.execute(sql_query)
+		result = cursor.fetchall()
 		return result
 
 

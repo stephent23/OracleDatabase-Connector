@@ -23,11 +23,12 @@ class DBConfiguration(object):
 		parser.read(self.config_file)
 
 		self.db_config['hostname'] = parser.get('DatabaseInfo', 'hostname')
+		self.db_config['service'] = parser.get('DatabaseInfo', 'service')
 		self.db_config['username'] = parser.get('DatabaseCredentials', 'username')
 		self.db_config['password'] = parser.get('DatabaseCredentials', 'password')
 
 
-	def _write_config(self, hostname, username, password):
+	def _write_config(self, hostname, service, username, password):
 		# Create the configuration file. This will overwrite any existing file.
 		config_file = open(self.config_file, 'w')
 		
@@ -38,6 +39,7 @@ class DBConfiguration(object):
 		config = ConfigParser.RawConfigParser()
 		config.add_section('DatabaseInfo')
 		config.set('DatabaseInfo', 'hostname', hostname)
+		config.set('DatabaseInfo', 'service', service)
 		
 		config.add_section('DatabaseCredentials')
 		config.set('DatabaseCredentials', 'username', username)
